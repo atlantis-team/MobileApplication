@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Device listing
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let device of this.devices" (click)="deviceSelected(device.id)">
+      <h2>{{device.name}}</h2>
+      <p>Test description</p>
+    </button>
+  </ion-list>
+</ion-content>
