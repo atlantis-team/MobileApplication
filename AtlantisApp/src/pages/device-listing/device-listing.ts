@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { DeviceTabsPage } from '../device-tabs/device-tabs';
 
 @Component({
   selector: 'page-device-listing',
@@ -54,8 +55,10 @@ export class DeviceListingPage {
 
   }
 
-  deviceSelected(deviceId) {
-    console.log(deviceId);
+  deviceSelected(deviceData) {
+    this.navCtrl.push(DeviceTabsPage, {
+      data: deviceData
+    });
   }
 
 }

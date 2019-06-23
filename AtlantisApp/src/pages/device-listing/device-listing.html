@@ -8,7 +8,7 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let device of this.devices" (click)="deviceSelected(device.id)">
+    <button ion-item *ngFor="let device of this.devices" (click)="deviceSelected(device)">
       <h2>{{device.name}}</h2>
       <p>Test description</p>
     </button>
