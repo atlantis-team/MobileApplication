@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { DeviceInformationPage } from '../device-information/device-information';
-import { DeviceChartsPage } from '../device-charts/device-charts';
-import { DeviceCommandsPage } from '../device-commands/device-commands';
 
 /**
  * Generated class for the DeviceTabsPage page.
@@ -18,14 +15,13 @@ import { DeviceCommandsPage } from '../device-commands/device-commands';
 })
 export class DeviceTabsPage {
 
-  deviceInformationPage = DeviceInformationPage;
-  deviceChartsPage = DeviceChartsPage;
-  deviceCommandsPage = DeviceCommandsPage;
-
   deviceData: any;
+  
+  tabAction: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.deviceData = navParams.get('data');
+    this.tabAction = "data";
   }
 
 }
