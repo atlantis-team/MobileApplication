@@ -1,11 +1,11 @@
-<ion-header>
+<ion-header no-border>
   <ion-navbar>
     <ion-title>{{deviceData.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-tabs>
+  <ion-tabs tabsPlacement="top">
     <ion-tab [root]="deviceInformationPage" [rootParams]="deviceData" tabTitle="Data" tabIcon="list-box"></ion-tab>
     <ion-tab [root]="deviceChartsPage" tabTitle="Charts" tabIcon="stats"></ion-tab>
     <ion-tab *ngIf="deviceData.deviceCanSendCommand" [root]="deviceCommandsPage" tabTitle="Commands" tabIcon="send"></ion-tab>
