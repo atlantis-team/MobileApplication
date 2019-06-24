@@ -40,7 +40,7 @@ import { DeviceTabsPage } from '../pages/device-tabs/device-tabs';
     DeviceTabsPage,
     DeviceInformationPage,
     DeviceChartsPage,
-    DeviceCommandsPage
+    DeviceCommandsPage,
     LoginPage
   ],
   providers: [
