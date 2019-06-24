@@ -11,43 +11,53 @@ export class DeviceListingPage {
   public devices = [
     {
       id: 0,
-      name: 'Presence sensor'
+      name: 'Presence sensor',
+      deviceCanSendCommand: false
     },
     {
       id: 1,
-      name: 'Temperature sensor'
+      name: 'Temperature sensor',
+      deviceCanSendCommand: false
     },
     {
       id: 2,
-      name: 'Light sensor'
+      name: 'Light sensor',
+      deviceCanSendCommand: false
     },
     {
       id: 3,
-      name: 'Atmoshpheric pressure sensor'
+      name: 'Atmoshpheric pressure sensor',
+      deviceCanSendCommand: false
     },
     {
       id: 4,
-      name: 'Humidity sensor'
+      name: 'Humidity sensor',
+      deviceCanSendCommand: false
     },
     {
       id: 5,
-      name: 'Sound level sensor'
+      name: 'Sound level sensor',
+      deviceCanSendCommand: false
     },
     {
       id: 6,
-      name: 'GPS sensor'
+      name: 'GPS sensor',
+      deviceCanSendCommand: false
     },
     {
       id: 7,
-      name: 'CO2 level sensor'
+      name: 'CO2 level sensor',
+      deviceCanSendCommand: false
     },
     {
       id: 8,
-      name: 'LED sensor'
+      name: 'LED sensor',
+      deviceCanSendCommand: true
     },
     {
       id: 9,
-      name: 'Beeper'
+      name: 'Beeper',
+      deviceCanSendCommand: true
     }
   ];
 
