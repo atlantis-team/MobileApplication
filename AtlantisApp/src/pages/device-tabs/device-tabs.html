@@ -2,42 +2,12 @@
   <ion-navbar>
     <ion-title>{{deviceData.name}}</ion-title>
   </ion-navbar>
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="tabAction">
-      <ion-segment-button value="data">
-        Data
-      </ion-segment-button>
-      <ion-segment-button value="chart">
-        Charts
-      </ion-segment-button>
-      <ion-segment-button value="command">
-        Commands
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <div [ngSwitch]="tabAction">
-    <ion-list *ngSwitchCase="'data'">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </ion-list>
-
-    <ion-list *ngSwitchCase="'chart'">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </ion-list>
-
-    <ion-list *ngSwitchCase="'command'">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </ion-list>
-  </div>
+<ion-content>
+  <ion-tabs>
+    <ion-tab [root]="deviceInformationPage" [rootParams]="deviceData" tabTitle="Data" tabIcon="list-box"></ion-tab>
+    <ion-tab [root]="deviceChartsPage" tabTitle="Charts" tabIcon="stats"></ion-tab>
+    <ion-tab *ngIf="deviceData.deviceCanSendCommand" [root]="deviceCommandsPage" tabTitle="Commands" tabIcon="send"></ion-tab>
+  </ion-tabs>
 </ion-content>

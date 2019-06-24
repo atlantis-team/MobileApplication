@@ -6,6 +6,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { DeviceListingPage } from '../pages/device-listing/device-listing';
+import { DeviceInformationPage } from '../pages/device-information/device-information';
+import { DeviceChartsPage } from '../pages/device-charts/device-charts';
+import { DeviceCommandsPage } from '../pages/device-commands/device-commands';
 import { DeviceTabsPage } from '../pages/device-tabs/device-tabs';
 
 @NgModule({
@@ -13,6 +16,9 @@ import { DeviceTabsPage } from '../pages/device-tabs/device-tabs';
     MyApp,
     DeviceListingPage,
     DeviceTabsPage,
+    DeviceInformationPage,
+    DeviceChartsPage,
+    DeviceCommandsPage
   ],
   imports: [
     BrowserModule,
@@ -23,6 +29,9 @@ import { DeviceTabsPage } from '../pages/device-tabs/device-tabs';
     MyApp,
     DeviceListingPage,
     DeviceTabsPage,
+    DeviceInformationPage,
+    DeviceChartsPage,
+    DeviceCommandsPage
   ],
   providers: [
     StatusBar,
