@@ -49,75 +49,21 @@ export class OAuthProvider extends HttpRequestsProvider {
         "&client_id=" + client_id +
         "&redirect_uri=" + oauthRedirectEndpoint +
         "&scope=openid" +
-        "&response_type=code", "_blank", "location=no,clearsessioncache=yes,clearcache=yes");
+        "&response_type=id_token", "_blank", "location=no,clearsessioncache=yes,clearcache=yes");
       browserRef.addEventListener("loadstart", (event) => {
         if ((event.url).indexOf(oauthRedirectEndpoint) === 0) {
           browserRef.removeEventListener("exit", (event) => { });
           browserRef.close();
-          var responseParameters = ((event.url).split("?")[1]).split("&");
-          var parsedResponse = {};
-          for (var i = 0; i < responseParameters.length; i++) {
-            parsedResponse[responseParameters[i].split("=")[0]] = responseParameters[i].split("=")[1];
-          }
-          if (parsedResponse["code"] !== undefined && parsedResponse["code"] !== null) {
-            resolve(parsedResponse);
+          if (event.url.includes('#id_token=')) {
+            var responseToken = (event.url).split("#")[1].split("=")[1];
+            console.log(responseToken);
+            resolve(responseToken);
           } else {
-            reject("Problem authenticating with Legrand");
+            reject("Problem authenticating with AD B2C");
           }
         }
       });
-      // browserRef.addEventListener("exit", function(event) {
-      //     reject("The Legrand sign in flow was canceled");
-      // });
     })
-  }
-
-  getTokens(authorizationCode): Promise<any> {
-    const requestTokenBody = new HttpParams()
-      .set(this.oauthBaseEndpointMainParamName, this.oauthBaseEndpointMainParamValue)
-      .set('client_id', this.client_id)
-      .set('grant_type', "authorization_code")
-      .set('code', authorizationCode)
-      .set('client_secret', this.client_secret);
-    return this.post(this.oauthBaseEndpoint + "/token", requestTokenBody, true).then(
-      data => {
-        return {
-          token: data.access_token,
-          refreshToken: data.refresh_token
-        }
-      },
-      error => {
-        Promise.reject('Could not get Token using Legrand\'s API');
-      }
-    )
-  }
-
-  refreshToken(): Promise<any> {
-    return this.getRefreshTokenFromStorage().then(
-      refreshToken => {
-        const requestTokenBody = new HttpParams()
-          .set(this.oauthBaseEndpointMainParamName, this.oauthBaseEndpointMainParamValue)
-          .set('client_id', this.client_id)
-          .set('grant_type', "refresh_token")
-          .set('refresh_token', refreshToken)
-          .set('client_secret', this.client_secret);
-        console.log(requestTokenBody);
-        return this.post(this.oauthBaseEndpoint + "/token", requestTokenBody, true).then(
-          data => {
-            console.log(data);
-            return this.saveToken(data.access_token).then(
-              () => {
-                return this.saveRefreshToken(data.refresh_token).then(
-                  () => {
-                    Promise.resolve();
-                  }, error => { Promise.reject('Could not save refreshToken in storage'); }
-                )
-              }, error => { Promise.reject('Could not save token in storage'); }
-            )
-          }, error => { Promise.reject('Could not refresh Token using Legrand\'s API'); }
-        )
-      }, error => { Promise.reject("could not get refreshToken from storage"); }
-    )
   }
 
 }

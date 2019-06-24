@@ -90,16 +90,8 @@ export class HttpRequestsProvider {
     return this.storage.set("token", token);
   }
 
-  public saveRefreshToken(refreshToken: string) {
-    return this.storage.set("refreshToken", refreshToken);
-  }
-
   public getTokenFromStorage() {
     return this.storage.get("token");
-  }
-
-  public getRefreshTokenFromStorage() {
-    return this.storage.get("refreshToken");
   }
 
   public clearStorage() {
