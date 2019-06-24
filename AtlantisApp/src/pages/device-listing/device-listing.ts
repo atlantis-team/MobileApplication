@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { DeviceTabsPage } from '../device-tabs/device-tabs';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-device-listing',
@@ -69,6 +70,10 @@ export class DeviceListingPage {
     this.navCtrl.push(DeviceTabsPage, {
       data: deviceData
     });
+  }
+
+  loginAzure() {
+    this.navCtrl.push(LoginPage);
   }
 
 }

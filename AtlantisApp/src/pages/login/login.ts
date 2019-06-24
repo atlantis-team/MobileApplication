@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LoadingController, NavController, Platform } from 'ionic-angular';
 import { OAuthProvider } from '../../providers/o-auth/o-auth';
+import { DeviceListingPage } from '../device-listing/device-listing';
 
 /**
  * Generated class for the LoginPage page.
@@ -29,10 +30,8 @@ export class LoginPage {
         tokens => {
           this.OAuthProvider.saveToken(tokens.token)
             .then((result) => {
-              this.OAuthProvider.saveRefreshToken(tokens.refreshToken)
-                .then(result2 => {
-                  console.log("SUCCESS LOGIN");
-                }).catch(err => { this.loginErrorHandler(err) })
+              console.log("SUCCESS LOGIN");
+              this.navCtrl.setRoot(DeviceListingPage);
             })
             .catch((err) => { this.loginErrorHandler(err) });
         },

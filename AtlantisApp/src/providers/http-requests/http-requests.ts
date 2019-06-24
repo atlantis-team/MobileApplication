@@ -96,7 +96,6 @@ export class HttpRequestsProvider {
 
   public clearStorage() {
     this.storage.remove("token");
-    this.storage.remove("refreshToken");
   }
 
 }
