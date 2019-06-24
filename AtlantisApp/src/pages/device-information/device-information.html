@@ -6,4 +6,12 @@
 -->
 <ion-content padding>
   ID = {{deviceId}}
+  <ion-row class="header">
+    <div class="col">Value</div>
+    <div class="col">Type</div>
+  </ion-row>
+  <ion-row *ngFor="let data of rawData">
+    <div class="col">{{data.value}}</div>
+    <div class="col">{{data.type}}</div>
+  </ion-row>
 </ion-content>
