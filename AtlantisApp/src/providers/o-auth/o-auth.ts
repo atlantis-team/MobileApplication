@@ -1,10 +1,10 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { HttpRequestsProvider } from '../http-requests/http-requests';
-import { ApplicationConfig, MY_CONFIG, MY_CONFIG_TOKEN } from '../../app/app.config';
+import { ApplicationConfig, MY_CONFIG_TOKEN } from '../../app/app.config';
 
 /*
   Generated class for the OAuthProvider provider.

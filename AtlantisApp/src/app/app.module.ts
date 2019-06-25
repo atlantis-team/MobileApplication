@@ -16,6 +16,7 @@ import { DeviceInformationPage } from '../pages/device-information/device-inform
 import { DeviceChartsPage } from '../pages/device-charts/device-charts';
 import { DeviceCommandsPage } from '../pages/device-commands/device-commands';
 import { DeviceTabsPage } from '../pages/device-tabs/device-tabs';
+import { MobileApiProvider } from '../providers/mobile-api/mobile-api';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { DeviceTabsPage } from '../pages/device-tabs/device-tabs';
     HttpRequestsProvider,
     OAuthProvider,
     {provide: MY_CONFIG_TOKEN, useValue: MY_CONFIG},
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    MobileApiProvider
   ]
 })
 export class AppModule {}
