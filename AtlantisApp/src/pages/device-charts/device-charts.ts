@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavParams, App, NavController, AlertController, LoadingController } from 'ionic-angular';
 import { DeviceListingPage } from '../device-listing/device-listing';
 import { Chart } from 'chart.js';
+import { MobileApiProvider } from '../../providers/mobile-api/mobile-api';
 
 /**
  * Generated class for the DeviceChartsPage page.
@@ -20,55 +21,90 @@ export class DeviceChartsPage {
   @ViewChild('chartCanvas') chartCanvas;
 
   barChart: any;
+  deviceId: String;
+  period: any = 'hour';
 
-  constructor(public appCtrl: App, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public alertController: AlertController,
+    public loadingCtrl: LoadingController,
+    public mobileApi: MobileApiProvider
+  ) {
+
   }
 
-  popView() {
-    this.appCtrl.getRootNav().setRoot(DeviceListingPage);
-  }
+  //#region Ionic methods
 
   ionViewDidLoad() {
-
-    this.barChart = new Chart(this.chartCanvas.nativeElement, {
-
-      type: 'bar',
-      data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-
-    });
-
+    this.getCalcMetrics();
   }
+
+  //#endregion
+
+  //#region Job methods
+
+  getCalcMetrics() {
+    const loader = this.loadingCtrl.create({ content: "Loading ..." });
+    loader.present();
+
+    this.mobileApi.getDeviceCalcMetrics(this.deviceId, this.period).then(
+      data => {
+        loader.dismiss();
+        console.log(data.map(dat => ({ t: dat.date.toISOString().substring(0, 10), y: dat.value })));
+        this.barChart = new Chart(this.chartCanvas.nativeElement, {
+          type: 'line',
+          data: {
+            labels: data.map(dat => dat.date.toISOString().substring(0, 10)),
+            datasets: [
+              {
+                //label: "Previous metrics",
+                data: data.map(dat => ({ t: dat.date.toISOString().substring(0, 10), y: dat.value })),
+                backgroundColor: "rgba(72, 138, 255, 0.6)",
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            legend: {
+              display: false
+            },
+            tooltips: {
+              callbacks: {
+                label: function (tooltipItem) {
+                  return tooltipItem.yLabel;
+                }
+              }
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
+      },
+      error => {
+        loader.dismiss();
+        return Promise.reject(error);
+      }
+    )
+      .catch(error => {
+        loader.dismiss();
+        return Promise.reject(error);
+      })
+  }
+
+  //#endregion
+
+  //#region Interaction methods
+
+  onChangePeriod($event) {
+    console.log("Changed period");
+    this.getCalcMetrics();
+  }
+
+  //#endregion
 
 }

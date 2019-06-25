@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { DeviceTabsPage } from '../device-tabs/device-tabs';
 import { LoginPage } from '../login/login';
+import { MobileApiProvider } from '../../providers/mobile-api/mobile-api';
 
 @Component({
   selector: 'page-device-listing',
@@ -9,62 +10,58 @@ import { LoginPage } from '../login/login';
 })
 export class DeviceListingPage {
 
-  public devices = [
-    {
-      id: 0,
-      name: 'Presence sensor',
-      deviceCanSendCommand: false
-    },
-    {
-      id: 1,
-      name: 'Temperature sensor',
-      deviceCanSendCommand: false
-    },
-    {
-      id: 2,
-      name: 'Light sensor',
-      deviceCanSendCommand: false
-    },
-    {
-      id: 3,
-      name: 'Atmoshpheric pressure sensor',
-      deviceCanSendCommand: false
-    },
-    {
-      id: 4,
-      name: 'Humidity sensor',
-      deviceCanSendCommand: false
-    },
-    {
-      id: 5,
-      name: 'Sound level sensor',
-      deviceCanSendCommand: false
-    },
-    {
-      id: 6,
-      name: 'GPS sensor',
-      deviceCanSendCommand: false
-    },
-    {
-      id: 7,
-      name: 'CO2 level sensor',
-      deviceCanSendCommand: false
-    },
-    {
-      id: 8,
-      name: 'LED sensor',
-      deviceCanSendCommand: true
-    },
-    {
-      id: 9,
-      name: 'Beeper',
-      deviceCanSendCommand: true
-    }
-  ];
+  public devices: Array<any>;
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    public alertController: AlertController,
+    public loadingCtrl: LoadingController,
+    public mobileApi: MobileApiProvider
+  ) {
 
   }
+
+  //#region Ionic methods
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad devicesListPage');
+
+    this.getUser().then(
+      data => {
+        this.devices = data.devices;
+      },
+      error => {
+        this.alertController.create({
+          title: 'Error',
+          message: error,
+          buttons: [{ text: 'Ok' }]
+        }).present();
+      })
+  }
+
+  //#endregion
+
+  //#region Job methods
+
+  getUser(): Promise<any> {
+    const loader = this.loadingCtrl.create({ content: "Loading ..." });
+    loader.present();
+
+    return this.mobileApi.getUser().then(
+      data => {
+        loader.dismiss();
+        return data;
+      },
+      error => {
+        loader.dismiss();
+        return Promise.reject(error);
+      }
+    )
+  }
+
+  //#endregion
+
+  //#region Interaction methods
 
   deviceSelected(deviceData) {
     this.navCtrl.push(DeviceTabsPage, {
@@ -75,5 +72,7 @@ export class DeviceListingPage {
   loginAzure() {
     this.navCtrl.push(LoginPage);
   }
+
+  //#endregion
 
 }

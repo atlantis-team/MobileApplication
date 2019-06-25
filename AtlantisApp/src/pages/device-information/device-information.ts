@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavParams, App, AlertController, NavController, LoadingController } from 'ionic-angular';
 import { DeviceListingPage } from '../device-listing/device-listing';
+import { MobileApiProvider } from '../../providers/mobile-api/mobile-api';
 
 /**
  * Generated class for the DeviceInformationPage page.
@@ -16,67 +17,52 @@ import { DeviceListingPage } from '../device-listing/device-listing';
 })
 export class DeviceInformationPage {
 
-  deviceId: number;
+  deviceId: String;
+  rawMetrics: any;
 
-  public rawData = [
-    {
-      id: 0,
-      value: 646531,
-      type: "lol"
-    },
-    {
-      id: 1,
-      value: 97846513,
-      type: "lol"
-    },
-    {
-      id: 2,
-      value: 849651,
-      type: "lol"
-    },
-    {
-      id: 3,
-      value: 2164,
-      type: "lol"
-    },
-    {
-      id: 4,
-      value: 4651,
-      type: "lol"
-    },
-    {
-      id: 5,
-      value: 789,
-      type: "lol"
-    },
-    {
-      id: 6,
-      value: 1561,
-      type: "lol"
-    },
-    {
-      id: 7,
-      value: 6432,
-      type: "lol"
-    },
-    {
-      id: 8,
-      value: 964823,
-      type: "lol"
-    },
-    {
-      id: 9,
-      value: 9865,
-      type: "lol"
-    }
-  ];
-
-  constructor(public appCtrl: App, public navParams: NavParams) {
-    this.deviceId = navParams.get('id');
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alertController: AlertController,
+    public loadingCtrl: LoadingController,
+    public mobileApi: MobileApiProvider
+  ) {
+    this.deviceId = navParams.get('deviceId');
   }
+
+  //#region  Ionic methods
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad devicePage');
+    this.getRawMetrics();
+  }
+  //#endregion
+
+  //#region Job methods
+  getRawMetrics() {
+    const loader = this.loadingCtrl.create({ content: "Loading ..." });
+    loader.present();
+
+    this.mobileApi.getDeviceRawMetrics(this.deviceId).then(
+      data => {
+        loader.dismiss();
+        this.rawMetrics = data;
+      },
+      error => {
+        loader.dismiss();
+        return Promise.reject(error);
+      }
+    )
+      .catch(error => {
+        loader.dismiss();
+        return Promise.reject(error);
+      })
+  }
+  //#endregion
+
+  //#region Interaction methods
   
-  popView(){
-    this.appCtrl.getRootNav().setRoot(DeviceListingPage);
-  }
+
+  
+  //#endregion
 
 }

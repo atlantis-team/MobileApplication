@@ -5,13 +5,12 @@
   Ionic pages and navigation.
 -->
 <ion-content padding>
-  ID = {{deviceId}}
   <ion-row class="header">
     <div class="col">Value</div>
-    <div class="col">Type</div>
+    <div class="col">Date</div>
   </ion-row>
-  <ion-row *ngFor="let data of rawData">
+  <ion-row *ngFor="let data of rawMetrics">
     <div class="col">{{data.value}}</div>
-    <div class="col">{{data.type}}</div>
+    <div class="col">{{data.date | date:'yyyy-MM-dd hh:mm:ss'}}</div>
   </ion-row>
 </ion-content>

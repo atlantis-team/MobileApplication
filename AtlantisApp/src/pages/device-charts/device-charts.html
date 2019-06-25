@@ -8,7 +8,7 @@
   <ion-list>
     <ion-item>
       <ion-label>Period of time</ion-label>
-      <ion-select [(ngModel)]="period">
+      <ion-select [(ngModel)]="period" (ionChange)="onChangePeriod($event)">
         <ion-option value="hour">Hour</ion-option>
         <ion-option value="day">Day</ion-option>
         <ion-option value="week">Week</ion-option>
@@ -17,7 +17,7 @@
   </ion-list>
   <ion-card>
     <ion-card-header>
-      <h2 text-capitalize>{{period}}</h2>
+      <h2>Chart of the metrics of the previous {{period}}</h2>
     </ion-card-header>
     <ion-card-content>
       <canvas #chartCanvas></canvas>

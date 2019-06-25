@@ -7,11 +7,11 @@
 </ion-header>
 
 <ion-content>
-  <button ion-button block margin (click)="loginAzure()">Login to Azure (AD B2C)</button>
+  <button ion-button margin (click)="loginAzure()">Login to Azure (AD B2C)</button>
   <ion-list>
     <button ion-item *ngFor="let device of this.devices" (click)="deviceSelected(device)">
       <h2>{{device.name}}</h2>
-      <p>Test description</p>
+      <p>{{device.type}}</p>
     </button>
   </ion-list>
 </ion-content>

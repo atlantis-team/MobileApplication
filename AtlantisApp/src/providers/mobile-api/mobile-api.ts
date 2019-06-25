@@ -23,23 +23,19 @@ class Device {
   name: string;
   type: string;
   unit: string;
-  calcMetrics: Array<Number>;
-  rawMetrics: Array<Number>;
 
   constructor(obj?: any) {
     this.deviceId = obj && obj.deviceId || null;
     this.name = obj && obj.name || null;
     this.type = obj && obj.type || null;
     this.unit = obj && obj.unit || null;
-    this.calcMetrics = [];
-    this.rawMetrics = [];
   }
 }
 
 class RawMetric {
   deviceId: string;
   date: Date;
-  value: string;
+  value: number;
 
   constructor(obj?: any) {
     this.deviceId = obj && obj.deviceId || null;
@@ -49,18 +45,14 @@ class RawMetric {
 }
 
 class CalcMetric {
-  id: string;
   deviceId: string;
-  dateTimeStart: Date;
-  dateTimeEnd: Date;
+  date: Date;
   value: number;
   dataType: string;
 
   constructor(obj?: any) {
-    this.id = obj && obj.id || null;
     this.deviceId = obj && obj.deviceId || null;
-    this.dateTimeStart = obj && obj.dateTimeStart && new Date(obj.dateTimeStart) || null;
-    this.dateTimeEnd = obj && obj.dateTimeEnd && new Date(obj.dateTimeEnd) || null;
+    this.date = obj && obj.date && new Date(obj.date) || null;
     this.value = obj && obj.value || null;
     this.dataType = obj && obj.dataType || null;
   }
@@ -84,7 +76,7 @@ export class MobileApiProvider extends OAuthProvider {
   ) {
     super(http, storage, configuration);
     console.log('Hello MobileAPI Provider');
-    this.ApiEndPoint = configuration.atlantisApp;
+    this.ApiEndPoint = configuration.mobileApiEndpoint;
   }
 
   private requestMobileAPI(url: string, errorMessage: string, body?: object, post: boolean = false): Promise<any> {
@@ -114,6 +106,49 @@ export class MobileApiProvider extends OAuthProvider {
   }
 
   getUser(): Promise<User> {
+    return Promise.resolve(
+      new User({
+        userId: "1",
+        firstname: "Raphael",
+        lastname: "Octau",
+        devices: [
+          {
+            deviceId: "1",
+            name: "LS 2000",
+            type: "Light sensor",
+            unit: "lux"
+          },
+          {
+            deviceId: "2",
+            name: "ATM Test1",
+            type: "Atmospheric sensor",
+            unit: "hPa"
+          },
+          {
+            deviceId: "3",
+            name: "Sound S56",
+            type: "Sound sensor",
+            unit: "dB"
+          },
+          {
+            deviceId: "4",
+            name: "BipBip 2002",
+            type: "Beeper",
+          },
+          {
+            deviceId: "5",
+            name: "LED light WOW",
+            type: "LED",
+          },
+          {
+            deviceId: "6",
+            name: "Temp 3000",
+            type: "Temperature sensor",
+            unit: "°C"
+          },
+        ]
+      })
+    );
     return this.requestMobileAPI(this.ApiEndPoint + "/getUser", "Could not get user from MobileAPI").then(
       data => {
         return new User(data);
@@ -137,10 +172,43 @@ export class MobileApiProvider extends OAuthProvider {
     )
   }
 
-  getDeviceRawMetrics(device: Device, timestamp: number): Promise<Array<RawMetric>> {
+  getDeviceRawMetrics(deviceId: String): Promise<Array<RawMetric>> {
+    return Promise.resolve(
+      [
+        {
+          deviceId: "1",
+          date: new Date(),
+          value: 5000
+        },
+        {
+          deviceId: "1",
+          date: new Date(),
+          value: 5178
+        },
+        {
+          deviceId: "1",
+          date: new Date(),
+          value: 5287
+        },
+        {
+          deviceId: "1",
+          date: new Date(),
+          value: 5327
+        },
+        {
+          deviceId: "1",
+          date: new Date(),
+          value: 5463
+        },
+        {
+          deviceId: "1",
+          date: new Date(),
+          value: 5532
+        },
+      ]
+    );
     var body = {
-      deviceId: device.deviceId,
-      timestamp: timestamp
+      deviceId: deviceId,
     };
     return this.requestMobileAPI(this.ApiEndPoint + '/getDeviceRawMetrics', "Could not get user raw metrics from MobileAPI", body).then(
       data => {
@@ -153,9 +221,49 @@ export class MobileApiProvider extends OAuthProvider {
     )
   }
 
-  getDeviceCalcMetrics(device: Device, timestamp: number): Promise<Array<CalcMetric>> {
+  getDeviceCalcMetrics(deviceId: String, timestamp: String): Promise<Array<CalcMetric>> {
+    return Promise.resolve(
+      [
+        {
+          deviceId: "1",
+          date: new Date(),
+          value: 5000,
+          dataType: ""
+        },
+        {
+          deviceId: "1",
+          date: new Date(),
+          value: 5178,
+          dataType: ""
+        },
+        {
+          deviceId: "1",
+          date: new Date(),
+          value: 5287,
+          dataType: ""
+        },
+        {
+          deviceId: "1",
+          date: new Date(),
+          value: 5327,
+          dataType: ""
+        },
+        {
+          deviceId: "1",
+          date: new Date(),
+          value: 5463,
+          dataType: ""
+        },
+        {
+          deviceId: "1",
+          date: new Date(),
+          value: 5532,
+          dataType: ""
+        },
+      ]
+    );
     var body = {
-      deviceId: device.deviceId,
+      deviceId: deviceId,
       timestamp: timestamp
     };
     return this.requestMobileAPI(this.ApiEndPoint + '/getDeviceCalcMetrics', "Could not get user calc metrics from MobileAPI", body).then(

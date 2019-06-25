@@ -18,9 +18,5 @@ export class DeviceCommandsPage {
 
   constructor(public appCtrl: App, public navParams: NavParams) {
   }
-  
-  popView(){
-    this.appCtrl.getRootNav().setRoot(DeviceListingPage);
-  }
 
 }
