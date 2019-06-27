@@ -46,4 +46,8 @@ export class LoginPage {
     console.error('Error Login ' + err);
   }
 
+  ignoreLogin() {
+    this.navCtrl.setRoot(DeviceListingPage);
+  }
+
 }

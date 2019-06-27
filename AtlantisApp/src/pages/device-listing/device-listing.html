@@ -1,15 +1,14 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
       Device listing
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <button ion-button margin (click)="loginAzure()">Login to Azure (AD B2C)</button>
+<ion-content padding>
   <ion-list>
-    <button ion-item *ngFor="let device of this.devices" (click)="deviceSelected(device)">
+    <button no-padding ion-item *ngFor="let device of this.devices" (click)="deviceSelected(device)">
       <h2>{{device.name}}</h2>
       <p>{{device.type}}</p>
     </button>

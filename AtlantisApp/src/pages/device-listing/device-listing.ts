@@ -69,10 +69,6 @@ export class DeviceListingPage {
     });
   }
 
-  loginAzure() {
-    this.navCtrl.push(LoginPage);
-  }
-
   //#endregion
 
 }

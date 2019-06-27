@@ -5,5 +5,8 @@
   Ionic pages and navigation.
 -->
 <ion-content padding>
-  <button ion-button block>Send a command</button>
+  <ion-grid>
+    <button ion-button block color="secondary" large (click)="switch(true)">Switch ON</button>
+    <button ion-button block color="danger" large margin-top (click)="switch(false)">Switch OFF</button>
+  </ion-grid>
 </ion-content>

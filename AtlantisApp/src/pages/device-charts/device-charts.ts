@@ -29,9 +29,12 @@ export class DeviceChartsPage {
   constructor(
     public navCtrl: NavController,
     public alertController: AlertController,
+    public navParams: NavParams,
     public loadingCtrl: LoadingController,
     public mobileApi: MobileApiProvider
   ) {
+    this.deviceId = navParams.get('deviceId');
+
     var dateEnd = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000));
     var dateStart = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000));
     dateStart.setHours(dateStart.getHours() - 1);

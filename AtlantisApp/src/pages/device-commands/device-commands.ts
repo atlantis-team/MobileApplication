@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavParams, App, NavController, AlertController, LoadingController } from 'ionic-angular';
 import { DeviceListingPage } from '../device-listing/device-listing';
+import { MobileApiProvider } from '../../providers/mobile-api/mobile-api';
 
 /**
  * Generated class for the DeviceCommandsPage page.
@@ -16,7 +17,43 @@ import { DeviceListingPage } from '../device-listing/device-listing';
 })
 export class DeviceCommandsPage {
 
-  constructor(public appCtrl: App, public navParams: NavParams) {
+  deviceId: String;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alertController: AlertController,
+    public loadingCtrl: LoadingController,
+    public mobileApi: MobileApiProvider,
+    public alertCtrl: AlertController
+  ) {
+    this.deviceId = navParams.get('deviceId');
+  }
+
+  switch(bool) {
+    const loader = this.loadingCtrl.create({ content: "Loading ..." });
+    loader.present();
+
+    this.mobileApi.sendCommandToDevice(this.deviceId, bool).then(
+      data => {
+        loader.dismiss();
+
+        let alert = this.alertCtrl.create({
+          title: 'Success',
+          subTitle: data.message,
+          buttons: ['Dismiss']
+        });
+        alert.present();
+      },
+      error => {
+        loader.dismiss();
+        return Promise.reject(error);
+      }
+    )
+      .catch(error => {
+        loader.dismiss();
+        return Promise.reject(error);
+      })
   }
 
 }

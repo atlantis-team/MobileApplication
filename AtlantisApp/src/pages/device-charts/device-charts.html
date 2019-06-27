@@ -4,18 +4,20 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label floating>Start date (MM/DD/YYYY HH)</ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY HH" [(ngModel)]="startDate" (ionChange)="onChangeTime($event)"></ion-datetime>
+<ion-content>
+  <ion-list padding>
+    <ion-item no-padding>
+      <ion-label>Start date<br/>(MM/DD/YYYY HH)</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY HH" [(ngModel)]="startDate" (ionChange)="onChangeTime($event)">
+      </ion-datetime>
     </ion-item>
-    <ion-item>
-      <ion-label floating>End date (MM/DD/YYYY HH)</ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY HH" [(ngModel)]="endDate" (ionChange)="onChangeTime($event)"></ion-datetime>
+    <ion-item no-padding>
+      <ion-label>End date<br/>(MM/DD/YYYY HH)</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY HH" [(ngModel)]="endDate" (ionChange)="onChangeTime($event)">
+      </ion-datetime>
     </ion-item>
-    <ion-item>
-      <ion-label floating>Time interval</ion-label>
+    <ion-item no-padding>
+      <ion-label>Time interval</ion-label>
       <ion-select [(ngModel)]="timeInterval" (ionChange)="onChangeTimeInterval($event)">
         <ion-option value="hour">Hour</ion-option>
         <ion-option value="day">Day</ion-option>

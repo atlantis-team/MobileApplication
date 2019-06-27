@@ -279,9 +279,12 @@ export class MobileApiProvider extends OAuthProvider {
     )*/
   }
 
-  sendCommandToDevice(device: Device, command: any): Promise<any> {
-    var body = {
-      deviceId: device.deviceId,
+  sendCommandToDevice(deviceId: String, command: any): Promise<any> {
+    return Promise.resolve({
+      message: "LED switched " + (command == true ? "ON" : "OFF") + " successfully"
+    });
+    /*var body = {
+      deviceId: deviceId,
       command: command
     };
     return this.requestMobileAPI(this.ApiEndPoint + '/sendMessageToDevice', "Could not send command to device using MobileAPI", body, true).then(
@@ -291,7 +294,7 @@ export class MobileApiProvider extends OAuthProvider {
       error => {
         return Promise.reject(error);
       }
-    )
+    )*/
   }
 
 }
