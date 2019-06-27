@@ -15,7 +15,7 @@
       <ion-datetime displayFormat="MM/DD/YYYY HH" [(ngModel)]="endDate" (ionChange)="onChangeTime($event)"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label>Time interval</ion-label>
+      <ion-label floating>Time interval</ion-label>
       <ion-select [(ngModel)]="timeInterval" (ionChange)="onChangeTimeInterval($event)">
         <ion-option value="hour">Hour</ion-option>
         <ion-option value="day">Day</ion-option>
@@ -25,7 +25,7 @@
   </ion-list>
   <ion-card>
     <ion-card-header>
-      <h2>Chart of the metrics of the previous {{timeInterval}}</h2>
+      <h2 text-wrap>Metrics of each {{timeInterval}} in the time interval</h2>
     </ion-card-header>
     <ion-card-content>
       <canvas #chartCanvas></canvas>
