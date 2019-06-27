@@ -22,7 +22,9 @@ export class DeviceChartsPage {
 
   barChart: any;
   deviceId: String;
-  period: any = 'hour';
+  timeInterval: any = 'hour';
+  startDate: string;
+  endDate: string;
 
   constructor(
     public navCtrl: NavController,
@@ -30,7 +32,11 @@ export class DeviceChartsPage {
     public loadingCtrl: LoadingController,
     public mobileApi: MobileApiProvider
   ) {
-
+    var dateEnd = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000));
+    var dateStart = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000));
+    dateStart.setHours(dateStart.getHours() - 1);
+    this.endDate = dateEnd.toISOString();
+    this.startDate = dateStart.toISOString();
   }
 
   //#region Ionic methods
@@ -47,7 +53,7 @@ export class DeviceChartsPage {
     const loader = this.loadingCtrl.create({ content: "Loading ..." });
     loader.present();
 
-    this.mobileApi.getDeviceCalcMetrics(this.deviceId, this.period).then(
+    this.mobileApi.getDeviceCalcMetrics(this.deviceId, this.startDate, this.endDate, this.timeInterval).then(
       data => {
         loader.dismiss();
         console.log(data.map(dat => ({ t: dat.date.toISOString().substring(0, 10), y: dat.value })));
@@ -100,8 +106,13 @@ export class DeviceChartsPage {
 
   //#region Interaction methods
 
-  onChangePeriod($event) {
-    console.log("Changed period");
+  onChangeTimeInterval($event) {
+    console.log("Changed time interval");
+    this.getCalcMetrics();
+  }
+
+  onChangeTime($event) {
+    console.log("Changed time");
     this.getCalcMetrics();
   }
 
