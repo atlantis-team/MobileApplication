@@ -1,0 +1,36 @@
+<!--
+  Generated template for the DeviceChartsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content>
+  <ion-list padding>
+    <ion-item no-padding>
+      <ion-label>Start date<br/>(MM/DD/YYYY HH)</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY HH" [(ngModel)]="startDate" (ionChange)="onChangeTime($event)">
+      </ion-datetime>
+    </ion-item>
+    <ion-item no-padding>
+      <ion-label>End date<br/>(MM/DD/YYYY HH)</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY HH" [(ngModel)]="endDate" (ionChange)="onChangeTime($event)">
+      </ion-datetime>
+    </ion-item>
+    <ion-item no-padding>
+      <ion-label>Time interval</ion-label>
+      <ion-select [(ngModel)]="timeInterval" (ionChange)="onChangeTimeInterval($event)">
+        <ion-option value="hour">Hour</ion-option>
+        <ion-option value="day">Day</ion-option>
+        <ion-option value="week">Week</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-card>
+    <ion-card-header>
+      <h2 text-wrap>Metrics of each {{timeInterval}} in the time interval</h2>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #chartCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

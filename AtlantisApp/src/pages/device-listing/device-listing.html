@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Device listing
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="logout()">
+        Logout
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <button no-padding ion-item *ngFor="let device of this.devices" (click)="deviceSelected(device)">
+      <h2>{{device.DeviceName}}</h2>
+      <p>{{device.type}}</p>
+    </button>
+  </ion-list>
+</ion-content>

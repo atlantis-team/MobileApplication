@@ -1,0 +1,13 @@
+<ion-header no-border>
+  <ion-navbar color="primary">
+    <ion-title>{{deviceData.name}} ({{deviceData.type}})</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-tabs tabsPlacement="top" color="primary">
+    <ion-tab [root]="deviceInformationPage" [rootParams]="deviceData" tabTitle="Data" tabIcon="list-box"></ion-tab>
+    <ion-tab [root]="deviceChartsPage" [rootParams]="deviceData" tabTitle="Charts" tabIcon="stats"></ion-tab>
+    <ion-tab *ngIf="deviceData.unit" [root]="deviceCommandsPage" [rootParams]="deviceData" tabTitle="Commands" tabIcon="send"></ion-tab>
+  </ion-tabs>
+</ion-content>
