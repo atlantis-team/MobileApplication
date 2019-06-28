@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { LoadingController, NavController, Platform } from 'ionic-angular';
+import { LoadingController, NavController, Platform, AlertController } from 'ionic-angular';
 import { OAuthProvider } from '../../providers/o-auth/o-auth';
 import { DeviceListingPage } from '../device-listing/device-listing';
+import { HttpRequestsProvider } from '../../providers/http-requests/http-requests';
 
 /**
  * Generated class for the LoginPage page.
@@ -22,13 +23,15 @@ export class LoginPage {
     public platform: Platform,
     public navCtrl: NavController,
     public OAuthProvider: OAuthProvider,
+    public alertController: AlertController,
+    public httpProvider: HttpRequestsProvider
   ) { }
 
   login() {
     this.platform.ready().then(() => {
       this.OAuthProvider.authorize(window).then(
-        tokens => {
-          this.OAuthProvider.saveToken(tokens.token)
+        token => {
+          this.OAuthProvider.saveToken(token)
             .then((result) => {
               console.log("SUCCESS LOGIN");
               this.navCtrl.setRoot(DeviceListingPage);
@@ -44,6 +47,11 @@ export class LoginPage {
 
   loginErrorHandler(err) {
     console.error('Error Login ' + err);
+    this.alertController.create({
+      title: 'Error',
+      message: err,
+      buttons: [{ text: 'Ok' }]
+    }).present();
   }
 
   ignoreLogin() {

@@ -82,6 +82,9 @@ export class MobileApiProvider extends OAuthProvider {
   private requestMobileAPI(url: string, errorMessage: string, body?: object, post: boolean = false): Promise<any> {
     return this.getTokenFromStorage().then(
       token => {
+        if (token == null) {
+          return Promise.reject("Could not get token from storage, please logout and login again");
+        }
         if (!body) body = {};
         body["token"] = token;
         if (post)
@@ -101,7 +104,7 @@ export class MobileApiProvider extends OAuthProvider {
             }
           );
       },
-      error => { return Promise.reject("Could not get token from storage"); }
+      error => { return Promise.reject("Could not get token from storage, please logout and login again"); }
     );
   }
 

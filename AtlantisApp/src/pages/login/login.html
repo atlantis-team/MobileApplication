@@ -11,6 +11,11 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button (click)="login()" block>Login to AD B2C</button>
-  <button ion-button (click)="ignoreLogin()" block margin-top>Ignore login (DEV ONLY)</button>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <button ion-button (click)="login()">Login to Active Directory</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

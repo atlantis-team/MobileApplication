@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, App, NavController, AlertController, LoadingController } from 'ionic-angular';
-import { DeviceListingPage } from '../device-listing/device-listing';
+import { IonicPage, NavParams, NavController, AlertController, LoadingController } from 'ionic-angular';
 import { MobileApiProvider } from '../../providers/mobile-api/mobile-api';
 
 /**
