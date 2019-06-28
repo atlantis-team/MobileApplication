@@ -17,7 +17,7 @@ export const MY_CONFIG = {
         },
         oauthRedirectEndpoint: "http://localhost/"
     },
-    mobileApiEndpoint: "http://localhost:7001/AtlantisJEE/api/mobile"
+    mobileApiEndpoint: "http://192.168.43.65:21061/mobileAPI/mobileapi/mobile"
 };
 
 export const MY_CONFIG_TOKEN = new InjectionToken<ApplicationConfig>('config');

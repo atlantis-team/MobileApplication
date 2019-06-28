@@ -19,16 +19,14 @@ class User {
 }
 
 class Device {
-  deviceId: String;
-  name: string;
-  type: string;
-  unit: string;
+  ID: number;
+  User_OID: string;
+  DeviceName: string;
 
   constructor(obj?: any) {
-    this.deviceId = obj && obj.deviceId || null;
-    this.name = obj && obj.name || null;
-    this.type = obj && obj.type || null;
-    this.unit = obj && obj.unit || null;
+    this.ID = obj && obj.ID || null;
+    this.User_OID = obj && obj.User_OID || null;
+    this.DeviceName = obj && obj.DeviceName || null;
   }
 }
 
@@ -106,7 +104,7 @@ export class MobileApiProvider extends OAuthProvider {
   }
 
   getUser(): Promise<User> {
-    return Promise.resolve(
+    /*return Promise.resolve(
       new User({
         userId: "1",
         firstname: "Raphael",
@@ -148,32 +146,20 @@ export class MobileApiProvider extends OAuthProvider {
           },
         ]
       })
-    );
-    /*return this.requestMobileAPI(this.ApiEndPoint + "/getUser", "Could not get user from MobileAPI").then(
+    );*/
+    console.log('GET USER')
+    return this.requestMobileAPI(this.ApiEndPoint + "/getDevices", "Could not get user from MobileAPI", null, true).then(
       data => {
         return new User(data);
       },
       error => {
         return Promise.reject(error);
       }
-    )*/
-  }
-
-  createUser(firstname: string, lastname: string): Promise<User> {
-    var body = {
-      firstname: firstname,
-      lastname: lastname
-    };
-    return this.requestMobileAPI(this.ApiEndPoint + "/createUser", "Could not create user using MobileAPI", body, true).then(
-      data => {
-        return new User(data);
-      },
-      error => { return Promise.reject(error); }
     )
   }
 
   getDeviceRawMetrics(deviceId: String): Promise<Array<RawMetric>> {
-    return Promise.resolve(
+    /*return Promise.resolve(
       [
         {
           deviceId: "1",
@@ -206,11 +192,11 @@ export class MobileApiProvider extends OAuthProvider {
           value: 5532
         },
       ]
-    );
-    /*var body = {
+    );*/
+    var body = {
       deviceId: deviceId,
     };
-    return this.requestMobileAPI(this.ApiEndPoint + '/getDeviceRawMetrics', "Could not get user raw metrics from MobileAPI", body).then(
+    return this.requestMobileAPI(this.ApiEndPoint + '/getDeviceRawMetrics', "Could not get user raw metrics from MobileAPI", body, true).then(
       data => {
         var rawMetrics = data.map(rawMetric => { return new RawMetric(rawMetric) });
         return rawMetrics;
@@ -218,11 +204,11 @@ export class MobileApiProvider extends OAuthProvider {
       error => {
         return Promise.reject(error);
       }
-    )*/
+    )
   }
 
   getDeviceCalcMetrics(deviceId: String, timestampStart: String, timestampEnd: String, timeInterval: string): Promise<Array<CalcMetric>> {
-    return Promise.resolve(
+    /*return Promise.resolve(
       [
         {
           deviceId: "1",
@@ -261,14 +247,14 @@ export class MobileApiProvider extends OAuthProvider {
           dataType: ""
         },
       ]
-    );
-    /*var body = {
+    );*/
+    var body = {
       deviceId: deviceId,
       timestampStart: timestampStart,
       timestampEnd: timestampEnd,
       timeInterval: timeInterval
     };
-    return this.requestMobileAPI(this.ApiEndPoint + '/getDeviceCalcMetrics', "Could not get user calc metrics from MobileAPI", body).then(
+    return this.requestMobileAPI(this.ApiEndPoint + '/getDeviceCalcMetrics', "Could not get user calc metrics from MobileAPI", body, true).then(
       data => {
         var calcMetrics = data.map(calcMetric => { return new CalcMetric(calcMetric) });
         return calcMetrics;
@@ -276,14 +262,14 @@ export class MobileApiProvider extends OAuthProvider {
       error => {
         return Promise.reject(error);
       }
-    )*/
+    )
   }
 
   sendCommandToDevice(deviceId: String, command: any): Promise<any> {
-    return Promise.resolve({
+    /*return Promise.resolve({
       message: "LED switched " + (command == true ? "ON" : "OFF") + " successfully"
-    });
-    /*var body = {
+    });*/
+    var body = {
       deviceId: deviceId,
       command: command
     };
@@ -294,7 +280,7 @@ export class MobileApiProvider extends OAuthProvider {
       error => {
         return Promise.reject(error);
       }
-    )*/
+    )
   }
 
 }
