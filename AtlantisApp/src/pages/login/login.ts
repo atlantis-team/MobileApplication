@@ -33,7 +33,6 @@ export class LoginPage {
         token => {
           this.OAuthProvider.saveToken(token)
             .then((result) => {
-              console.log("SUCCESS LOGIN");
               this.navCtrl.setRoot(DeviceListingPage);
             })
             .catch((err) => { this.loginErrorHandler(err) });

@@ -1,1 +1,2 @@
-MobileApplication
+Ionic version 3.20
+**DO NOT UPDATE TO NEWEST VERSION!**

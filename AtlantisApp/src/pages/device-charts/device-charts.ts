@@ -58,7 +58,6 @@ export class DeviceChartsPage {
     this.mobileApi.getDeviceCalcMetrics(this.deviceId, this.startDate, this.endDate, this.timeInterval).then(
       data => {
         loader.dismiss();
-        console.log(data.map(dat => ({ t: dat.date.toISOString().substring(0, 10), y: dat.value })));
         this.barChart = new Chart(this.chartCanvas.nativeElement, {
           type: 'line',
           data: {
@@ -109,12 +108,10 @@ export class DeviceChartsPage {
   //#region Interaction methods
 
   onChangeTimeInterval($event) {
-    console.log("Changed time interval");
     this.getCalcMetrics();
   }
 
   onChangeTime($event) {
-    console.log("Changed time");
     this.getCalcMetrics();
   }
 

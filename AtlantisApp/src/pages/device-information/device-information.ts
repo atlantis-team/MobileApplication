@@ -31,7 +31,6 @@ export class DeviceInformationPage {
 
   //#region  Ionic methods
   ionViewDidLoad() {
-    console.log('ionViewDidLoad devicePage');
     this.getRawMetrics();
   }
   //#endregion

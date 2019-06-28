@@ -14,7 +14,6 @@ import 'rxjs/add/operator/toPromise';
 export class HttpRequestsProvider {
 
   constructor(public http: HttpClient, public storage: Storage) {
-    console.log('Hello HttpRequests Provider');
   }
 
   post(url: string, body: any, urlEncoded?: Boolean): Promise<any> {
@@ -26,7 +25,6 @@ export class HttpRequestsProvider {
       headers: new HttpHeaders(headerDict),
     };
 
-    console.log("Call post " + url);
     return this.http.post(url, body, requestOptions)
       .toPromise()
       .then(this.extractData)
@@ -35,7 +33,6 @@ export class HttpRequestsProvider {
 
   get(url: string, body: any = null): Promise<any> {
     var urlGet = url + this.BuildURLParametersString(body);
-    console.log("Call get " + urlGet);
     return this.http.get(urlGet)
       .toPromise()
       .then(this.extractData)

@@ -26,8 +26,6 @@ export class DeviceListingPage {
   //#region Ionic methods
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad devicesListPage');
-
     this.getUser().then(
       data => {
         this.devices = data.devices;
@@ -66,7 +64,7 @@ export class DeviceListingPage {
   //#region Interaction methods
 
   deviceSelected(deviceData) {
-    this.httpProvider.getTokenFromStorage().then(
+    /*this.httpProvider.getTokenFromStorage().then(
       token => {
         if (token == null) {
           this.alertController.create({
@@ -75,11 +73,11 @@ export class DeviceListingPage {
             buttons: [{ text: 'Ok' }]
           }).present();
           return;
-        }
+        }*/
         this.navCtrl.push(DeviceTabsPage, {
           data: deviceData
         });
-      },
+      /*},
       error => {
         this.alertController.create({
           title: 'Error',
@@ -87,7 +85,7 @@ export class DeviceListingPage {
           buttons: [{ text: 'Ok' }]
         }).present();
       }
-    );
+    );*/
   }
 
   logout() {

@@ -75,7 +75,6 @@ export class MobileApiProvider extends OAuthProvider {
     @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig
   ) {
     super(http, storage, configuration);
-    console.log('Hello MobileAPI Provider');
     this.ApiEndPoint = configuration.mobileApiEndpoint;
   }
 
@@ -91,7 +90,6 @@ export class MobileApiProvider extends OAuthProvider {
           return this.post(url, body).then(
             data => { return data; },
             (error: HttpErrorResponse) => {
-              console.log(error, url, errorMessage, body, post);
               return Promise.reject("An error occured");
             }
           );
@@ -99,7 +97,6 @@ export class MobileApiProvider extends OAuthProvider {
           return this.get(url + this.BuildURLParametersString(body)).then(
             data => { return data },
             (error: HttpErrorResponse) => {
-              console.log(error, url, errorMessage, body, post);
               return Promise.reject("An error occured");
             }
           );

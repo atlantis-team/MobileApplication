@@ -28,7 +28,6 @@ export class OAuthProvider extends HttpRequestsProvider {
     @Inject(MY_CONFIG_TOKEN) configuration: ApplicationConfig
   ) {
     super(http, storage);
-    console.log('Hello OAuthAPI Provider');
     this.client_id = configuration.atlantisApp.client_id;
     this.client_secret = configuration.atlantisApp.client_secret;
     this.oauthBaseEndpoint = configuration.atlantisApp.oauthBaseEndpoint;
@@ -56,7 +55,6 @@ export class OAuthProvider extends HttpRequestsProvider {
           browserRef.close();
           if (event.url.includes('#id_token=')) {
             var responseToken = (event.url).split("#")[1].split("=")[1];
-            console.log(responseToken);
             resolve(responseToken);
           } else {
             reject("Problem authenticating with AD B2C");
